@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, url_for
-from createObject import project, mongoDB
+from createObject import project, mongoDB,aws_key
 import json
 app = Flask(__name__)
 
@@ -29,27 +29,41 @@ def addproject():
         organization=request.json["organization"]
         members=request.json["members"]
         p = project(projectname,description,members,organization)
-        return p.getprojects()
+        projectDict = json.loads(p.getproject())
+        return json.dumps(projectDict)
     except Exception as inst:
         print(inst)
         return "error in request: is missing please check input json"
 
 @app.route("/project/",methods=['GET'])
-def getproject():
-    """
+def getprojects():
     try:
-        p = project("name","desc","mem","org")
-        return p.getprojects()
+        p = project()
+        return json.loads(p.getprojects())
     except Exception as inst:
         print inst
         return "make sure database is initialised"
     
-    return p.getprojects()
+@app.route("/project/<projectID>",methods=['GET'])
+def getproject(projectID):
+    try:
+        p = project()
+        return json.loads(p.getproject(projectID))
+    except Exception as inst:
+        print inst
+        return "make sure database is initialised"
+
+@app.route("/aws_key/<projectID>",methods=['POST'])
+def addaws_key(projectID):
+    awskey = aws_key(projectID,**request.json)
+    return awskey.getaws_key(projectID)
+
+@app.route("/aws_key/<projectID>",methods=['GET'])
+def getaws_key(projectID):
+    awskey = aws_key(projectID)
+    return awskey.getaws_key(projectID)
 
 
-"""
-@app.route("/project/<projectname>",methods=['POST']) 
-"""
 if __name__ == "__main__":
     app.run(
         port=8000
