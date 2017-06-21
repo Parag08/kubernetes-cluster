@@ -64,9 +64,9 @@ class instance:
             self.putinDB(projectID)
     def getinstances(self,projectID):
         with ClusterRpcProxy(config) as rpc:
-            instance =  rpc.mongodb_service.getinstance(projectID)
+            instance =  rpc.mongodb_service.getinstances(projectID)
             return json.dumps(instance)
     def putinDB(self,projectID):
         with ClusterRpcProxy(config) as rpc:
-            instance = rpc.mongodb_service.insertinstance(projectID,self.__dict__)
+            instance = rpc.mongodb_service.insertinstances(projectID,self.__dict__)
             return json.dumps(instance)

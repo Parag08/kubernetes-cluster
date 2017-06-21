@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, url_for
-from createObject import project, mongoDB,aws_key
+from createObject import project, mongoDB,aws_key,instance
 import json
 app = Flask(__name__)
 
@@ -62,6 +62,17 @@ def addaws_key(projectID):
 def getaws_key(projectID):
     awskey = aws_key(projectID)
     return awskey.getaws_key(projectID)
+
+@app.route("/instances/<projectID>",methods=['POST'])
+def addinstance(projectID):
+    instanceObj = instance(projectID,**request.json)
+    return awskey.getinstances(projectID)
+
+@app.route("/instances/<projectID>",methods=['GET'])
+def getinstance(projectID):
+    instanceObj = instance(projectID)
+    return awskey.getinstances(projectID)
+
 
 
 if __name__ == "__main__":
