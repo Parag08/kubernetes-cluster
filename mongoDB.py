@@ -55,7 +55,7 @@ class MongoDBService:
         document['_id'] = str(document['_id'])
         return str(document)
     @rpc
-    def insertinstance(self,projectID,dicttoinsert):
+    def insertinstances(self,projectID,dicttoinsert):
         print("insertawskey: request",dicttoinsert)
         collection_instance = self.db['instance']
         collection_project = self.db['project']

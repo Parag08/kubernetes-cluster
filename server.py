@@ -1,7 +1,10 @@
 from flask import Flask, render_template, request, url_for
 from createObject import project, mongoDB,aws_key,instance
 import json
+import utility
 app = Flask(__name__)
+
+Deploy = {}
 
 @app.route("/intialise/",methods=['POST'])
 def intialiseMongoDB():
@@ -66,14 +69,23 @@ def getaws_key(projectID):
 @app.route("/instances/<projectID>",methods=['POST'])
 def addinstance(projectID):
     instanceObj = instance(projectID,**request.json)
-    return awskey.getinstances(projectID)
+    return instanceObj.getinstances(projectID)
 
 @app.route("/instances/<projectID>",methods=['GET'])
 def getinstance(projectID):
     instanceObj = instance(projectID)
-    return awskey.getinstances(projectID)
+    return instanceObj.getinstances(projectID)
 
-
+@app.route("/deploy/<projectID>",methods=['GET'])
+def deployproject(projectID):
+    p = project()
+    awskey = aws_key(projectID)
+    instanceObj = instance(projectID)
+    projectDict = json.loads(p.getproject(projectID))
+    awsDict = json.loads(awskey.getaws_key(projectID))
+    instanceDict =  json.loads(instanceObj.getinstances(projectID))
+    utility.deploy(projectDict,awsDict,instanceDict)
+    return "deployment started"
 
 if __name__ == "__main__":
     app.run(

@@ -60,7 +60,7 @@ class aws_key:
 class instance:
     def __init__(self,projectID,**entries):
         self.__dict__.update(entries)
-        if bool(entries)
+        if bool(entries):
             self.putinDB(projectID)
     def getinstances(self,projectID):
         with ClusterRpcProxy(config) as rpc:
