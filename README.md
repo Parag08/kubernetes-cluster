@@ -1,3 +1,3 @@
 
 
-A utility to start your own kubernetes cluster with UI
+A utility to start your own kubernetes cluster with JSON requests
