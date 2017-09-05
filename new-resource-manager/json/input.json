@@ -1,0 +1,39 @@
+{
+  "basic": {
+    "projectname": "testproject",
+    "os_type": "ubuntu",
+    "user": "testuser",
+    "provider": "aws",
+  },
+  "resource": {
+    "aws": [{
+      "label": "in1MS",
+      "access_key": "AK",
+      "secret_key": "SK",
+      "region": "ap-northeast-1",
+      "subnet": "subnet",
+      "security_group": "sg",
+      "instance_type": "t2.micro",
+      "behaviour_type": ["master", "slave"]
+    }, {
+      "label": "in2MS",
+      "access_key": "AK",
+      "secret_key": "SK",
+      "region": "ap-northeast-1",
+      "subnet": "subnet",
+      "security_group": "sg",
+      "instance_type": "t2.micro",
+      "behaviour_type": ["master", "slave"]
+    }, {
+      "label": "int3MS",
+      "access_key": "AK",
+      "secret_key": "SK",
+      "region": "ap-northeast-1",
+      "subnet": "subnet",
+      "security_group": "sg",
+      "instance_type": "t2.micro",
+      "behaviour_type": ["master", "slave"]
+    }],
+    "private": []
+  }
+}
